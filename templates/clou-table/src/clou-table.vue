@@ -1,6 +1,7 @@
 <template>
   <div class="clou-table">
     <el-table
+      border
       ref="multipleTable"
       :data="tableData.records"
       tooltip-effect="dark"
@@ -9,24 +10,33 @@
       @row-click="myclick"
       height="100%"
       width="100%"
+      v-loading.fullscreen.lock="isToast"
      >
       <el-table-column
         type="index"
-        width="40"
+        :index="indexMethods"
+        width="50"
+        align="center"
         >
       </el-table-column>
       <el-table-column
         type="selection"
-        width="55"
+        width="40"
+        align="center"
         v-if="tableConfig.showCheckbox === false?false:true">
       </el-table-column>
+
       <template  v-for="(item,index) in tableName">
         <el-table-column
               :key="index"
               :prop="item.prop"
               :label="item.label"
               :width="item.width"
+              :align ="item.align"
               v-if="item.width!=='0'">
+              <template slot-scope="scope">
+                <span v-html="scope.row[item.prop]"></span>
+            </template>
         </el-table-column>
       </template>
     </el-table>
@@ -44,12 +54,13 @@
 <script>
 export default {
   name: "ClouTable",
-  props: { tableData: Object, tableName: Array,tableConfig: Object},
+  props: { tableData: Object, tableName: Array,tableConfig: Object,isToast:Boolean},
   data() {
     return {
       multipleSelection: [],
       currentPage4: 4,
-      time: null
+      time: null,
+      // fullscreenLoading: false
     };
   },
   methods: {
@@ -74,7 +85,12 @@ export default {
     },
     handleCurrentChange(val) {
       this.$emit("current-change", val);
+    },
+    indexMethods(index) {
+        return (this.tableData.size*(this.tableData.current-1)+index)+1
     }
+  },
+  mounted() {
   },
   created() {}
 };
@@ -92,4 +108,10 @@ export default {
 .clou-table .el-pagination button, .el-pagination span:not([class*=suffix]){
   min-width: auto;
 }
+
+.el-table .trmName_class {
+  color: red;
+}
+
+
 </style>

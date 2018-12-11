@@ -10,12 +10,18 @@
       @row-click="myclick"
       @row-dblclick="mydblclick"
       @select-click="handleSelectionChange"
+      :isToast="isToast"
       ></clou-table>
 
     
     <input type="button" value="点击隐藏" v-on:click="a=false"/>
     <input type="button" value="双击出现" v-on:dblclick="a=true"/>
     <div style="width:100px; height:100px; background: red" v-show="a"></div>
+
+    <input type="text" value="双击出现"/>
+    
+    <input type="number" value="1"/>
+
   </div>
 </template>
 
@@ -95,23 +101,26 @@ export default {
         records: [
           {
             date: "2016-05-03",
-            name: "王小虎",
-            address: "上海市普陀区金沙江路 1518 弄"
+            name: "<span style='color:red;'>王小虎</span>",
+            address: '<a href="./">aaaa</a>',
+            cell_className: "trmName_class"
           },
           {
             date: "2016-05-02",
-            name: "王小虎",
-            address: "上海市普陀区金沙江路 1518 弄"
+            name: '<a href="./">aaaa</a>',
+            address: "上海市普陀区金沙江路 1518 弄",
           },
           {
             date: "2016-05-04",
             name: "王小虎",
-            address: "上海市普陀区金沙江路 1518 弄"
+            address: "上海市普陀区金沙江路 1518 弄",
+            cell_className: "trmName_class"
           },
           {
             date: "2016-05-01",
             name: "王小虎",
-            address: "上海市普陀区金沙江路 1518 弄"
+            address: "上海市普陀区金沙江路 1518 弄",
+            cell_className: "trmName_class"
           },
           {
             date: "2016-05-08",
@@ -121,7 +130,8 @@ export default {
           {
             date: "2016-05-06",
             name: "王小虎",
-            address: "上海市普陀区金沙江路 1518 弄"
+            address: "上海市普陀区金沙江路 1518 弄",
+            cell_className: "trmName_class"
           },
           {
             date: "2016-05-07",
@@ -134,14 +144,14 @@ export default {
         {
           prop: "date",
           label: "时间",
-          width: "0",
+          width: "100",
           align: "right"
         },
         {
           prop: "name",
           label: "姓名",
           width: "100",
-          align: "left"
+          align: "center"
         },
         {
           prop: "address",
@@ -151,8 +161,9 @@ export default {
         }
       ],
       tableConfig:{
-        ischeckbox:false        
-      }
+        ischeckbox:false
+      },
+      isToast: false,
     };
   },
   methods: {
@@ -167,6 +178,7 @@ export default {
       console.log(val, "双击一行的返回事件");
     },
     handleSelectionChange(val) {
+      // this.isToast = true
       console.log(val, "点击选择框的事件");
     }
   }
