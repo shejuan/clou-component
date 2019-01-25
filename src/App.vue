@@ -163,7 +163,6 @@ export default {
       tableConfig:{
         ischeckbox:false
       },
-      isToast: false,
     };
   },
   methods: {
@@ -178,7 +177,6 @@ export default {
       console.log(val, "双击一行的返回事件");
     },
     handleSelectionChange(val) {
-      // this.isToast = true
       console.log(val, "点击选择框的事件");
     }
   }
